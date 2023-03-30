@@ -2,4 +2,5 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return render(request, "base.html")
+    name = "world"
+    return render(request, "base.html", {"name": name})
