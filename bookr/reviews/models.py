@@ -2,6 +2,8 @@ from django.contrib import auth
 from django.db import models
 
 
+# Define your models here...
+
 class Publisher(models.Model):
     """A company that publishes books."""
     name = models.CharField(max_length=50,
