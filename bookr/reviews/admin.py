@@ -19,8 +19,9 @@ class BookrAdminSite(AdminSite):
     index_title = 'Bookr site admin'
 
 class BookAdmin(admin.ModelAdmin):
+    date_hierarchy = 'publication_date'
     list_display = ('title', 'isbn13')
-    list_filter = ('publisher',)
+    list_filter = ('publisher', 'publication_date',)
 
     def isbn13(self,obj):
         """ '9780316769174' => '978-0-31-676917-4' """
