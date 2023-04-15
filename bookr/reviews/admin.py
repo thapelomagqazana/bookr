@@ -12,6 +12,7 @@ def initialled_name(obj):
 
 class ContributorAdmin(admin.ModelAdmin):
     list_display = ('last_names', 'first_names',)
+    search_fields = ('last_names', 'first_names',)
 
 class BookrAdminSite(AdminSite):
     title_header = 'Bookr Admin'
