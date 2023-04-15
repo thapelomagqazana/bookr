@@ -11,7 +11,7 @@ def initialled_name(obj):
     return f"{obj.last_names}, {initials}"
 
 class ContributorAdmin(admin.ModelAdmin):
-    list_display = (initialled_name,)
+    list_display = ('last_names', 'first_names',)
 
 class BookrAdminSite(AdminSite):
     title_header = 'Bookr Admin'
@@ -24,9 +24,15 @@ class BookAdmin(admin.ModelAdmin):
     list_filter = ('publisher', 'publication_date',)
     search_fields = ('title', 'isbn', 'publisher__name__startswith',)
 
+
     def isbn13(self,obj):
         """ '9780316769174' => '978-0-31-676917-4' """
         return f"{obj.isbn[0:3]}-{obj.isbn[3:4]}-{obj.isbn[4:6]}-{obj.isbn[6:12]}-{obj.isbn[12:13]}"
+
+class ReviewAdmin(admin.ModelAdmin):
+    exclude = ('date_edited',)
+    fieldsets = ((None, {'fields': ('creator', 'book')}),
+                 ('Review content', {'fields': ('content', 'rating')}))
 
 admin_site = BookrAdminSite(name='bookr')
 
@@ -35,4 +41,4 @@ admin_site.register(Book, BookAdmin)
 admin_site.register(Publisher)
 admin_site.register(Contributor, ContributorAdmin)
 admin_site.register(BookContributor)
-admin_site.register(Review)
+admin_site.register(Review, ReviewAdmin)
